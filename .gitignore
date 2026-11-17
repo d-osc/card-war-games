@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dev.db
+dev.db-journal
+.env
+.env.local
+*.log
+.zcode/
+.env.*
+!.env.example
+*.db
+*.db-journal
+*.db-wal
+*.db-shm

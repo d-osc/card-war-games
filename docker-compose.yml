@@ -1,0 +1,26 @@
+# PostgreSQL สำหรับ production — ใช้คู่กับการเปลี่ยน datasource ใน prisma/schema.prisma
+# (ดิฟอลต์โปรเจกต์ใช้ SQLite สำหรับพัฒนาบนเครื่อง)
+# host ใช้พอร์ต 5433 เพื่อหลีกเลี่ยงการชนกับ postgres ตัวอื่นที่อาจรัน 5432 อยู่แล้ว
+#   docker compose up -d
+#   node scripts/use-db.mjs postgres
+#   cd apps/server && DATABASE_URL="postgresql://cardwar:cardwar_secret_change_me@localhost:5433/cardwar?schema=public" npx prisma db push
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cardwar
+      POSTGRES_PASSWORD: cardwar_secret_change_me
+      POSTGRES_DB: cardwar
+    ports:
+      - "5433:5432"
+    volumes:
+      - cardwar_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cardwar -d cardwar"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  cardwar_pgdata:

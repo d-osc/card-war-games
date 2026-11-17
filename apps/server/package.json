@@ -1,0 +1,36 @@
+{
+  "name": "@cardwar/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "typecheck": "tsc --noEmit",
+    "db:use:sqlite": "node ../../scripts/use-db.mjs sqlite",
+    "db:use:pg": "node ../../scripts/use-db.mjs postgres",
+    "db:pg:push": "node ../../scripts/use-db.mjs postgres && prisma db push",
+    "db:pg:seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@cardwar/shared": "*",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/jwt": "^8.0.1",
+    "@fastify/static": "^7.0.4",
+    "@prisma/client": "^5.20.0",
+    "fastify": "^4.28.1",
+    "google-auth-library": "^9.14.0",
+    "socket.io": "^4.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "prisma": "^5.20.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
